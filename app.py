@@ -6,11 +6,16 @@ from pathlib import Path
 from datetime import datetime
 import numpy as np
 import os
-from dotenv import load_dotenv
 import google.generativeai as genai
 
-load_dotenv("c:/streamlit-project/.env")
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+try:
+    from dotenv import load_dotenv
+    load_dotenv("c:/streamlit-project/.env")
+except Exception:
+    pass
+
+api_key = os.getenv("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY", "")
+genai.configure(api_key=api_key)
 
 st.set_page_config(page_title="IT 비용과 투자", layout="wide")
 
