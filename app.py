@@ -27,7 +27,7 @@ st.markdown("계정별 비용 현황 및 월별/연도별 추이 분석 (CSV 파
 @st.cache_data
 def load_csv_data():
     """data 디렉토리의 모든 CSV 파일을 읽어서 병합"""
-    data_dir = Path("c:/streamlit-project/data")
+    data_dir = Path(__file__).parent / "data"
 
     all_data = []
     csv_files = sorted(data_dir.glob("cost_*.csv"))
@@ -58,7 +58,8 @@ if df.empty:
     st.stop()
 
 # 데이터 통계
-st.sidebar.info(f"📁 로드된 파일: {len(list(Path('c:/streamlit-project/data').glob('*.csv')))}개\n📊 총 레코드: {len(df):,}개")
+data_dir = Path(__file__).parent / "data"
+st.sidebar.info(f"📁 로드된 파일: {len(list(data_dir.glob('*.csv')))}개\n📊 총 레코드: {len(df):,}개")
 
 # ===== 사이드바 필터 =====
 st.sidebar.header("🔍 필터")
